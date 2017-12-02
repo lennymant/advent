@@ -16,9 +16,9 @@ var input = `179	2358	5197	867	163	4418	3135	5049	187	166	4682	5080	5541	172	429
 125	454	110	103	615	141	562	199	340	80	500	473	221	573	108	536
 1311	64	77	1328	1344	1248	1522	51	978	1535	1142	390	81	409	68	352`;
 
-/*var input = `5 9 2 8
-9 4 7 3
-3 8 6 5`;
+/* var input = `5 1 9 5
+7 5 3
+2 4 6 8`;
 */
 
 
@@ -27,15 +27,15 @@ var input = `179	2358	5197	867	163	4418	3135	5049	187	166	4682	5080	5541	172	429
 var linedArray = input.split('\n');
 var thisLineCount;
 //console.log(linedArray);
+var thisLineMax;
+var thisLineMin;
+var thisLineDifference;
 var splitChar;
 var thisInteger;
 var checkSum = 0;
-var integerA;
-var integerB;
 
 // set splitChar to appropriate char - example is different to real input - tabs/spaces
 splitChar = '\t';
-//splitChar = ' ';
 
 
 // outer loop, run through the lines
@@ -46,29 +46,38 @@ for (var i=0; i<linedArray.length; i++) {
     var thisLineArray = linedArray[i].split(splitChar);
     //console.log(thisLineArray);
     // set the comparators to the first entry
+    thisLineMax = parseInt(thisLineArray[0]);
+    thisLineMin = parseInt(thisLineArray[0]);
 
     for (var innerLoop=0; innerLoop<thisLineArray.length; innerLoop++) {
         // now run through the figures on this line
-
-        console.log(`${integerA}/${integerB}`);
-        // now cross ref the line against the first innerLoop
-        for (var secondLoop = 0; secondLoop<thisLineArray.length; secondLoop++) {
-        integerA = parseInt(thisLineArray[innerLoop]);
-        integerB = parseInt(thisLineArray[secondLoop]);
-
-            if ((parseInt(integerA/integerB) === (integerA/integerB)) && (integerA/integerB >=1) && (innerLoop != secondLoop)) {
-                console.log(`A ${integerA} - B ${integerB} - SUM = ${integerB}`);
-                checkSum = checkSum + (integerA/integerB);
-            }
-                
-            
+        thisInteger = parseInt(thisLineArray[innerLoop]);
+        console.log(thisInteger);
+        // check if we've found the max
+        
+        if (thisInteger > thisLineMax) {
+            thisLineMax = thisInteger;
         }
-        // end secondloop
+            // check if we've found the min
+        if (thisInteger < thisLineMin) {
+            thisLineMin = thisInteger;
+            console.log(`min`);
+        }
+                console.log(`MAX ${thisLineMax} | MIN ${thisLineMin}`);
+    
     }
 // end of this line
 
+// check the difference between the figures
+    thisLineDifference = (thisLineMax - thisLineMin);
+// increment the checksum
+checkSum = (checkSum + thisLineDifference);
 
 
+console.log(`Maximum is ${thisLineMax}, Minimum is ${thisLineMin}`);
+console.log(`There were ${thisLineArray.length} entries on this line`);
+console.log(`This line difference is ${thisLineDifference} - checkSum inc to ${checkSum}`);
+console.log(`- - - - - - - - - - -`);
 }
 
 // end and checksum
